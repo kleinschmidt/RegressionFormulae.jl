@@ -1,4 +1,4 @@
-module RegressionFormula
+module RegressionFormulae
 
 using StatsModels
 using Combinatorics
