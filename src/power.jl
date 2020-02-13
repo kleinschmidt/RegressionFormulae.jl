@@ -12,7 +12,7 @@ end
 function StatsModels.apply_schema(
     t::FunctionTerm{typeof(^)},
     sch::StatsModels.FullRank,
-    ctx::Type{RegressionModel}
+    ctx::Type{<:RegressionModel}
 )
     length(t.args_parsed) == 2 ||
         throw(ArgumentError("invalid term $t: should have exactly two arguments"))
