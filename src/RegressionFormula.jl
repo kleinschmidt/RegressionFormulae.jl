@@ -11,5 +11,6 @@ const Schemas = Union{StatsModels.Schema, StatsModels.FullRank}
 
 include("fulldummy.jl")
 include("power.jl")
+include("nesting.jl")
 
 end # module
