@@ -1,5 +1,10 @@
 combinations_upto(x, n) = Iterators.flatten(combinations(x, i) for i in 1:n)
 
+"""
+    (term1, term2, ...) ^ n
+
+Generate all interactions of terms up to order ``n``.
+"""
 function Base.:(^)(args::TermTuple, deg::ConstantTerm)
     tuple(((&)(terms...) for terms in combinations_upto(args, deg.n))...)
 end
