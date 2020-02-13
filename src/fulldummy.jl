@@ -6,7 +6,7 @@ fulldummy(t::AbstractTerm) =
 function StatsModels.apply_schema(
     t::FunctionTerm{typeof(fulldummy)},
     sch::StatsModels.FullRank,
-    Mod::Type{<:MixedModel},
+    Mod::Type{<:RegressionModel},
 )
     fulldummy(apply_schema.(t.args_parsed, Ref(sch), Mod)...)
 end
