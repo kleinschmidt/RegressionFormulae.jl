@@ -1,0 +1,13 @@
+name = "RegressionFormula"
+uuid = "545c379f-4ec2-4339-9aea-38f2fb6a8ba2"
+authors = ["Dave Kleinschmidt"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
