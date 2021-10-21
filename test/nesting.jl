@@ -1,6 +1,5 @@
 using StatsModels
 using RegressionFormulae
-using RegressionFormulae
 using Test
 
 include("dummymod.jl")
@@ -11,6 +10,7 @@ dat = (; y=zeros(3), a=["u","i","o"], b=["q","w","e"], c=["s","d","f"], x=1:3)
     sch = schema(dat)
     @test_throws ArgumentError apply_schema(@formula(y ~ x / a), sch, RegressionModel)
     @test_throws ArgumentError apply_schema(@formula(y ~ /(a, b, c)), sch, RegressionModel)
+    @test !RegressionFormulae._isfulldummy(term(:a))
 end
 
 @testset "single nesting level" begin
