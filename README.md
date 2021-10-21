@@ -11,6 +11,8 @@ Extended [StatsModels.jl
 `@formula`](https://www.github.com/JuliaStats/StatsModels.jl) syntax for
 regression modeling.
 
+Note that the functionality in this package is very new: please verify that the resulting schematized formulae and model coefficient (names) are what you were expecting, especially if you are combining multiple "advanced" formula features.
+
 ## Examples
 
 ```julia
@@ -28,6 +30,8 @@ using RegressionFormulae, StatsModels, GLM, DataFrames
 
 Generate all main effects and interactions up to the specified order.  For
 instance, `(a+b+c)^2` generates `a + b + c + a&b + a&c + b&c`, but not `a&b&c`.
+
+**NB:** The presence of interaction terms within the base will result in redundant terms and is currently unsupported.
 
 ## Approach
 

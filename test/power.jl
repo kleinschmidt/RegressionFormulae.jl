@@ -35,5 +35,5 @@ end
     m = fit(DummyMod, @formula(y ~ (a + b + c * d)^3), dat)
     cn = coefnames(m)
     @test_broken !("a & c & c & d" in cn)
-    @test_broken length(cn) == length(Set(cn))
+    @test_broken cn == unique(cn)
 end
