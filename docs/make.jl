@@ -6,7 +6,7 @@ makedocs(;
     ],
     repo="https://github.com/kleinschmidt/RegressionFormulae.jl/blob/{commit}{path}#L{line}",
     sitename="RegressionFormulae.jl",
-    authors=["Dave Kleinschmidt", "Phillip Alday"],
+    authors="Dave Kleinschmidt and Phillip Alday",
 )
 
 deploydocs(;
