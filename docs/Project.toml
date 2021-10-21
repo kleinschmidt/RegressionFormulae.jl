@@ -1,2 +1,6 @@
 [deps]
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+RegressionFormulae = "545c379f-4ec2-4339-9aea-38f2fb6a8ba2"
+
+[compat]
+Documenter = "0.27"
