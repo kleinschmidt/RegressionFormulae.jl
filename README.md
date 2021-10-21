@@ -13,12 +13,14 @@ regression modeling.
 
 Note that the functionality in this package is very new: please verify that the resulting schematized formulae and model coefficient (names) are what you were expecting, especially if you are combining multiple "advanced" formula features.
 
+<!--
 ## Examples
 
 ```julia
 using RegressionFormulae, StatsModels, GLM, DataFrames
 
 ```
+-->
 
 ## Supported syntax ##
 
