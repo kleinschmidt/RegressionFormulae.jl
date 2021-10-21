@@ -4,7 +4,7 @@ using Test
 
 include("dummymod.jl")
 
-dat = (; y=zeros(10), a=1:10, b=11:20, c=21:30, d=31:40, e=41:50)
+dat = (; y=zeros(3), a=1:3, b=11:13, c=21:23, d=31:33, e=["u", "i", "o"])
 
 
 @testset "error checking" begin
@@ -20,6 +20,15 @@ end
     @test coefnames(m) == ["(Intercept)", "a", "b", "c", "d",
                            "a & b", "a & c", "a & d", "b & c", "b & d", "c & d",
                            "a & b & c", "a & b & d", "a & c & d", "b & c & d"]
+
+    m = fit(DummyMod, @formula(y ~ (1 + a + b + c + d)^3), dat)
+    @test_broken coefnames(m) == ["(Intercept)", "a", "b", "c", "d",
+                           "a & b", "a & c", "a & d", "b & c", "b & d", "c & d",
+                           "a & b & c", "a & b & d", "a & c & d", "b & c & d"]
+
+    m = fit(DummyMod, @formula(y ~ (a + b + e)^2), dat)
+    @test coefnames(m) == ["(Intercept)", "a", "b", "e: o", "e: u",
+                           "a & b", "a & e: o", "a & e: u", "b & e: o", "b & e: u"]
 end
 
 @testset "embedded interactions" begin
