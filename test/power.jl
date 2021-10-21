@@ -23,8 +23,8 @@ end
 
     m = fit(DummyMod, @formula(y ~ (1 + a + b + c + d)^3), dat)
     @test_broken coefnames(m) == ["(Intercept)", "a", "b", "c", "d",
-                           "a & b", "a & c", "a & d", "b & c", "b & d", "c & d",
-                           "a & b & c", "a & b & d", "a & c & d", "b & c & d"]
+                                  "a & b", "a & c", "a & d", "b & c", "b & d", "c & d",
+                                  "a & b & c", "a & b & d", "a & c & d", "b & c & d"]
 
     m = fit(DummyMod, @formula(y ~ (a + b + e)^2), dat)
     @test coefnames(m) == ["(Intercept)", "a", "b", "e: o", "e: u",
