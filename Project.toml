@@ -1,6 +1,6 @@
 name = "RegressionFormulae"
 uuid = "545c379f-4ec2-4339-9aea-38f2fb6a8ba2"
-authors = ["Dave Kleinschmidt and contributors"]
+authors = ["Dave Kleinschmidt", "Phillip Alday"]
 version = "0.1.0"
 
 [deps]
