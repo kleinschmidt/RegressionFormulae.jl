@@ -9,6 +9,8 @@ function Base.:(^)(args::TermTuple, deg::ConstantTerm)
     tuple(((&)(terms...) for terms in combinations_upto(args, deg.n))...)
 end
 
+# TODO: add a method for TupleTerm?
+
 function StatsModels.apply_schema(
     t::FunctionTerm{typeof(^)},
     sch::StatsModels.FullRank,

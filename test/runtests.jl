@@ -1,6 +1,7 @@
 using RegressionFormulae
 using Test
 
-@testset "RegressionFormulae.jl" begin
-    # Write your own tests here.
-end
+
+include("fulldummy.jl")
+include("nesting.jl")
+include("power.jl")
