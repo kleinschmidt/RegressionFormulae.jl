@@ -9,6 +9,8 @@ dat = (; y=zeros(3), a=1:3, b=11:13, c=21:23, d=31:33, e=["u", "i", "o"])
 
 @testset "error checking" begin
     @test_throws ArgumentError (term(:b),) ^ term(:a)
+    @test_throws ArgumentError (term(:b),) ^ term(2.5)
+    @test_throws ArgumentError (term(:b),) ^ term(-2)
 
     sch = schema(dat)
     @test_throws ArgumentError apply_schema(@formula(y ~ ^(a, b, c)), sch, RegressionModel)

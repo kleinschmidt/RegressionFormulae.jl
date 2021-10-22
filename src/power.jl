@@ -10,6 +10,7 @@ Generate all interactions of terms up to order ``n``.
     arise, e.g. `a & a & b`.
 """
 function Base.:(^)(args::TermTuple, deg::ConstantTerm{<:Integer})
+    deg.n > 0 || throw(ArgumentError("power should be greater than zero (got $deg)"))
     tuple(((&)(terms...) for terms in combinations_upto(args, deg.n))...)
 end
 
