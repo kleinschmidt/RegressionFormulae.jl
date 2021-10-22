@@ -41,7 +41,7 @@ function Base.:(/)(outer::InteractionTerm, inner::TermTuple)
     # we should only get here via expansion where the interaction term,
     # but who knows what devious things users will try
     _fulldummycheck(outer)
-    return outer + mapfoldl(x -> outer & x, +, inner)
+    return mapfoldl(x -> outer & x, +, inner; init=outer)
 end
 
 function Base.:(/)(outer::AbstractTerm, inner::AbstractTerm)
