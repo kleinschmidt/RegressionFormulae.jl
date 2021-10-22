@@ -4,7 +4,7 @@
 
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://kleinschmidt.github.io/RegressionFormulae.jl/stable)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://kleinschmidt.github.io/RegressionFormulae.jl/dev)
-[![Codecov](https://codecov.io/gh/kleinschmidt/RegressionFormulae.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/kleinschmidt/RegressionFormulae.jl)
+[![Codecov](https://codecov.io/gh/kleinschmidt/RegressionFormulae.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/kleinschmidt/RegressionFormulae.jl)
 
 Extended [StatsModels.jl
 `@formula`](https://www.github.com/JuliaStats/StatsModels.jl) syntax for
