@@ -23,7 +23,7 @@ function Base.:(/)(outer::InteractionTerm, inner::AbstractTerm)
     # but who knows what devious things users will try
     all(_isfulldummy, outer.terms[1:end-1]) ||
         throw(ArgumentError("Outer interactions in a nesting must consist only " *
-                        " of categorical terms with FullDummyCoding, got $outer"))
+                            " of categorical terms with FullDummyCoding, got $outer"))
     return outer + outer & inner
 end
 
