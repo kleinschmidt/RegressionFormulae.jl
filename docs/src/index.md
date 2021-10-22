@@ -1,8 +1,8 @@
-# RegressionFormula.jl
+# RegressionFormulae.jl
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [RegressionFormula]
+Modules = [RegressionFormulae]
 ```

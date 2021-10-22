@@ -1,6 +1,15 @@
 using RegressionFormulae
+using StatsModels
 using Test
 
-@testset "RegressionFormulae.jl" begin
-    # Write your own tests here.
+@testset "fulldummy" begin
+    include("fulldummy.jl")
+end
+
+@testset "nesting" begin
+    include("nesting.jl")
+end
+
+@testset "powers of terms" begin
+    include("power.jl")
 end

@@ -18,6 +18,3 @@ function fulldummy(t::CategoricalTerm)
     )
     t = CategoricalTerm(t.sym, new_contrasts)
 end
-
-fulldummy(x) =
-    throw(ArgumentError("fulldummy isn't supported outside of a MixedModel formula"))

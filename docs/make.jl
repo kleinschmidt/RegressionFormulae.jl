@@ -1,17 +1,16 @@
-using Documenter, RegressionFormula
+using Documenter, RegressionFormulae
 
 makedocs(;
-    modules=[RegressionFormula],
-    format=Documenter.HTML(),
     pages=[
         "Home" => "index.md",
     ],
-    repo="https://github.com/kleinschmidt/RegressionFormula.jl/blob/{commit}{path}#L{line}",
-    sitename="RegressionFormula.jl",
-    authors="Dave Kleinschmidt",
-    assets=String[],
+    repo="https://github.com/kleinschmidt/RegressionFormulae.jl/blob/{commit}{path}#L{line}",
+    sitename="RegressionFormulae.jl",
+    authors="Dave Kleinschmidt and Phillip Alday",
 )
 
 deploydocs(;
-    repo="github.com/kleinschmidt/RegressionFormula.jl",
+    repo="github.com/kleinschmidt/RegressionFormulae.jl",
+    devbranch = "main",
+    push_preview = true
 )
