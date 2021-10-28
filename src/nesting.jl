@@ -45,7 +45,7 @@ function Base.:(/)(outer::InteractionTerm, inner::TermTuple)
 end
 
 function Base.:(/)(outer::AbstractTerm, inner::AbstractTerm)
-    throw(ArgumentError("nesting terms requires categorical grouping term, got $outer / $inner " *
+    throw(ArgumentError("Nesting terms requires categorical grouping term, got $outer / $inner " *
                         "Manually specify $outer as `CategoricalTerm` in hints/contrasts"))
 end
 
@@ -57,7 +57,10 @@ function StatsModels.apply_schema(
     length(t.args_parsed) == 2 ||
         throw(ArgumentError("malformed nesting term: $t (Exactly two arguments required)"))
 
+    any(x -> isa(x, ConstantTerm), t.args_parsed) && return t
+
     args = apply_schema.(t.args_parsed, Ref(sch), Mod)
 
     return first(args) / last(args)
 end
+
