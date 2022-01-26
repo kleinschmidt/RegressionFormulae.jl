@@ -4,13 +4,29 @@ using Test
 
 include("dummymod.jl")
 
-dat = (; y=zeros(3), a=["u","i","o"], b=["q","w","e"], c=["s","d","f"], x=1:3)
+# y must not be the multiplicative or additive identity
+# otherwise some of the tests will trivially pass
+dat = (; y=2*ones(3), a=["u","i","o"], b=["q","w","e"], c=["s","d","f"], x=1:3)
 
 @testset "error checking" begin
     sch = schema(dat)
     @test_throws ArgumentError apply_schema(@formula(y ~ x / a), sch, RegressionModel)
     @test_throws ArgumentError apply_schema(@formula(y ~ /(a, b, c)), sch, RegressionModel)
     @test !RegressionFormulae._isfulldummy(term(:a))
+end
+
+@testset "division" begin
+    m = fit(DummyMod, @formula(y / 1000 ~ 1 + x), dat)
+    @test all(response(m) .≈ dat.y ./ 1000)
+
+    m = fit(DummyMod, @formula(1000 / y ~ 1 + x), dat)
+    @test all(response(m) .≈ 1000 ./ dat.y)
+
+    m = fit(DummyMod, @formula(y ~ 1 + 1000 / x), dat)
+    @test all(m.mm.m[:, 2] .≈ 1000 ./ dat.x)
+
+    m = fit(DummyMod, @formula(y ~ 1 + x / 1000), dat)
+    @test all(m.mm.m[:, 2] .≈ dat.x ./ 1000)
 end
 
 @testset "single nesting level" begin
