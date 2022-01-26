@@ -27,7 +27,7 @@ using RegressionFormulae, StatsModels, GLM, DataFrames
 
 `a / b` expands to `a + fulldummy(a) & b`.
 
-Numeric constants are special cased so that `/` so that performs division, making it possible to e.g. convert time to speed in the formula:
+Numeric constants are special cased so that `/` performs division, making it possible to e.g. convert time to speed in the formula:
 ```julia
 julia> fit(MyModelType, @formula(time_in_milliseconds / 1000 ~ 1 + x), my_data)
 ``` 
