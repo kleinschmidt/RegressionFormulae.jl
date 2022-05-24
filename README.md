@@ -48,3 +48,10 @@ corresponding functions in `Base` (`Base.:(^)`, `Base.:(/)`, etc.) for arguments
 that are `<:AbstractTerm` which implement the special behavior, returning the
 appropriate terms.  This allows the syntax to be used both within a `@formula`
 and for constructing terms programmatically at run-time.
+
+If using `apply_schema` directly, please note that you need to pass an appropriate model type as context. 
+Currently, the extensions here are defined for [`StatsAPI.RegressionModel`](https://github.com/JuliaStats/StatsAPI.jl/blob/main/src/regressionmodel.jl) and subtypes:
+
+```julia
+f = apply_schema(f, s, RegressionModel)
+```
