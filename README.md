@@ -53,5 +53,5 @@ If using `apply_schema` directly, please note that you need to pass an appropria
 Currently, the extensions here are defined for [`StatsAPI.RegressionModel`](https://github.com/JuliaStats/StatsAPI.jl/blob/main/src/regressionmodel.jl) and subtypes:
 
 ```julia
- julia apply_schema(f, s, RegressionModel)
+f = apply_schema(f, s, RegressionModel)
 ```
