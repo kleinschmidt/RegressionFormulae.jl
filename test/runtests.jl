@@ -13,3 +13,7 @@ end
 @testset "powers of terms" begin
     include("power.jl")
 end
+
+@testset "full rank interactions" begin
+    include("fullrankinteraction.jl")
+end
