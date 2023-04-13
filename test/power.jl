@@ -2,8 +2,6 @@ using StatsModels
 using RegressionFormulae
 using Test
 
-using RegressionFormulae: combinations_upto
-
 include("dummymod.jl")
 
 dat = (; y=zeros(3), a=1:3, b=11:13, c=21:23, d=31:33, e=["u", "i", "o"])
