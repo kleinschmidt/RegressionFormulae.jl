@@ -42,6 +42,10 @@ end
     @test coefnames(m) == ["(Intercept)", "a", "b", "c", "d",
                            "a & b", "a & c", "a & d",
                            "b & c", "b & d", "c & d"]
+    # not actually an InteractionTerm even if it's mathematically equivalent for
+    # ContinuousTerms
+    m = fit(DummyMod, @formula(y ~ (a + protect(c * d))^2), dat)
+    @test coefnames(m) == ["(Intercept)", "a", "c * d", "a & c *d "]
 end
 
 @testset "embedded interactions" begin
