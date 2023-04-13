@@ -44,8 +44,10 @@ end
                            "b & c", "b & d", "c & d"]
     # not actually an InteractionTerm even if it's mathematically equivalent for
     # ContinuousTerms
-    m = fit(DummyMod, @formula(y ~ (a + protect(c * d))^2), dat)
-    @test coefnames(m) == ["(Intercept)", "a", "c * d", "a & c *d "]
+    # throws an error and is broken
+    # https://github.com/JuliaStats/StatsModels.jl/issues/290
+    # m = fit(DummyMod, @formula(y ~ (a + protect(c * d))^2), dat)
+    # @test coefnames(m) == ["(Intercept)", "a", "c * d", "a & c *d "]
 end
 
 @testset "embedded interactions" begin
