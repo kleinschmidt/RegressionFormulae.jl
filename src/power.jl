@@ -6,8 +6,8 @@ combinations_upto(x, n) = Iterators.flatten(combinations(x, i) for i in 1:n)
 Generate all interactions of terms up to order ``n``.
 
 !!! warning
-    If any term is an `InteractionTerm`, then nonsensical interactions may
-    arise, e.g. `a & a & b`.
+    Embedded `InteractionTerms` (i.e. `(a + b + c & d)^2`) are not currently
+    supported and result in an error.
 """
 function Base.:(^)(args::TupleTerm, deg::ConstantTerm{<:Integer})
     deg.n > 0 || throw(ArgumentError("power should be greater than zero (got $deg)"))
