@@ -48,6 +48,8 @@ end
     # https://github.com/JuliaStats/StatsModels.jl/issues/290
     # m = fit(DummyMod, @formula(y ~ (a + protect(c * d))^2), dat)
     # @test coefnames(m) == ["(Intercept)", "a", "c * d", "a & c *d "]
+    # to remind us :this: is broken
+    @test_broken false
 end
 
 @testset "embedded interactions" begin
