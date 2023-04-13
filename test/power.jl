@@ -30,6 +30,18 @@ end
     m = fit(DummyMod, @formula(y ~ (a + b + e)^2), dat)
     @test coefnames(m) == ["(Intercept)", "a", "b", "e: o", "e: u",
                            "a & b", "a & e: o", "a & e: u", "b & e: o", "b & e: u"]
+
+    # make sure inner function terms work
+    m = fit(DummyMod, @formula(y ~ (a + b + log(a + b))^3), dat)
+    @test coefnames(m) ==  ["(Intercept)", "a", "b", "log(a + b)",
+                             "a & b", "a & log(a + b)", "b & log(a + b)",
+                             "a & b & log(a + b)"]
+
+    # cursed but should technically work
+    m = fit(DummyMod, @formula(y ~ (a + b + (c + d)^1)^2), dat)
+    @test coefnames(m) == ["(Intercept)", "a", "b", "c", "d",
+                           "a & b", "a & c", "a & d",
+                           "b & c", "b & d", "c & d"]
 end
 
 @testset "embedded interactions" begin
