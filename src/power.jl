@@ -6,15 +6,17 @@ combinations_upto(x, n) = Iterators.flatten(combinations(x, i) for i in 1:n)
 Generate all interactions of terms up to order ``n``.
 
 !!! warning
-    If any term is an `InteractionTerm`, then nonsensical interactions may
-    arise, e.g. `a & a & b`.
+    Embedded `InteractionTerms` (i.e. `(a + b + c & d)^2`) are not currently
+    supported and result in an error.
 """
-function Base.:(^)(args::TermTuple, deg::ConstantTerm{<:Integer})
+function Base.:(^)(args::TupleTerm, deg::ConstantTerm{<:Integer})
     deg.n > 0 || throw(ArgumentError("power should be greater than zero (got $deg)"))
+    any(t isa InteractionTerm for t in args) &&
+        throw(ArgumentError("powers of interaction terms not currently supported"))
     tuple(((&)(terms...) for terms in combinations_upto(args, deg.n))...)
 end
 
-function Base.:(^)(::TermTuple, deg::AbstractTerm)
+function Base.:(^)(::TupleTerm, deg::AbstractTerm)
     throw(ArgumentError("power should be an integer constant (got $deg)"))
 end
 
@@ -23,10 +25,12 @@ function StatsModels.apply_schema(
     sch::StatsModels.FullRank,
     ctx::Type{<:RegressionModel}
 )
-    length(t.args_parsed) == 2 ||
+    length(t.args) == 2 ||
         throw(ArgumentError("invalid term $t: should have exactly two arguments"))
-    first, second = t.args_parsed
-    second isa ConstantTerm{<:Integer} ||
-        throw(ArgumentError("invalid term $t: power should be an integer (got $second)"))
-    apply_schema.(first^second, Ref(sch), ctx)
+    first, second = t.args
+
+    base = apply_schema(first, sch, ctx)
+    return base^second
 end
+
+# StatsModels

@@ -21,12 +21,12 @@ function Base.:(/)(outer::CategoricalTerm, inner::AbstractTerm)
     return outer + fulldummy(outer) & inner
 end
 
-function Base.:(/)(outer::CategoricalTerm, inner::TermTuple)
+function Base.:(/)(outer::CategoricalTerm, inner::TupleTerm)
     fd = fulldummy(outer)
     return mapfoldl(x -> fd & x, +, inner; init=outer)
 end
 
-function Base.:(/)(outer::TermTuple, inner::Union{AbstractTerm, TermTuple})
+function Base.:(/)(outer::TupleTerm, inner::Union{AbstractTerm, TupleTerm})
     return outer[1:end-1] + last(outer) / inner
 end
 
@@ -37,7 +37,7 @@ function Base.:(/)(outer::InteractionTerm, inner::AbstractTerm)
     return outer + outer & inner
 end
 
-function Base.:(/)(outer::InteractionTerm, inner::TermTuple)
+function Base.:(/)(outer::InteractionTerm, inner::TupleTerm)
     # we should only get here via expansion where the interaction term,
     # but who knows what devious things users will try
     _fulldummycheck(outer)
@@ -54,13 +54,12 @@ function StatsModels.apply_schema(
     sch::StatsModels.FullRank,
     Mod::Type{<:RegressionModel},
 )
-    length(t.args_parsed) == 2 ||
+    length(t.args) == 2 ||
         throw(ArgumentError("malformed nesting term: $t (Exactly two arguments required)"))
 
-    any(x -> isa(x, ConstantTerm), t.args_parsed) && return t
+    any(x -> isa(x, ConstantTerm), t.args) && return t
 
-    args = apply_schema.(t.args_parsed, Ref(sch), Mod)
+    args = apply_schema.(t.args, Ref(sch), Mod)
 
     return first(args) / last(args)
 end
-
