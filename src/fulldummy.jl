@@ -8,7 +8,7 @@ function StatsModels.apply_schema(
     sch::StatsModels.FullRank,
     Mod::Type{<:RegressionModel},
 )
-    fulldummy(apply_schema.(t.args_parsed, Ref(sch), Mod)...)
+    fulldummy(apply_schema.(t.args, Ref(sch), Mod)...)
 end
 
 function fulldummy(t::CategoricalTerm)

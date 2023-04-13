@@ -9,12 +9,12 @@ Generate all interactions of terms up to order ``n``.
     If any term is an `InteractionTerm`, then nonsensical interactions may
     arise, e.g. `a & a & b`.
 """
-function Base.:(^)(args::TermTuple, deg::ConstantTerm{<:Integer})
+function Base.:(^)(args::Terms, deg::ConstantTerm{<:Integer})
     deg.n > 0 || throw(ArgumentError("power should be greater than zero (got $deg)"))
     tuple(((&)(terms...) for terms in combinations_upto(args, deg.n))...)
 end
 
-function Base.:(^)(::TermTuple, deg::AbstractTerm)
+function Base.:(^)(::Terms, deg::AbstractTerm)
     throw(ArgumentError("power should be an integer constant (got $deg)"))
 end
 
@@ -23,10 +23,17 @@ function StatsModels.apply_schema(
     sch::StatsModels.FullRank,
     ctx::Type{<:RegressionModel}
 )
-    length(t.args_parsed) == 2 ||
+    length(t.args) == 2 ||
         throw(ArgumentError("invalid term $t: should have exactly two arguments"))
-    first, second = t.args_parsed
+    first, second = t.args
     second isa ConstantTerm{<:Integer} ||
         throw(ArgumentError("invalid term $t: power should be an integer (got $second)"))
-    apply_schema.(first^second, Ref(sch), ctx)
+    base = mapfoldl(vcat, first.args) do tt
+        tt = apply_schema(tt, sch, ctx)
+        tt isa AbstractTerm && return [tt]
+        return [tt...]
+    end 
+    return apply_schema.(base^second, Ref(sch), ctx)
 end
+
+# StatsModels

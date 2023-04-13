@@ -2,6 +2,8 @@ using StatsModels
 using RegressionFormulae
 using Test
 
+using RegressionFormulae: combinations_upto
+
 include("dummymod.jl")
 
 dat = (; y=zeros(3), a=1:3, b=11:13, c=21:23, d=31:33, e=["u", "i", "o"])
@@ -34,8 +36,15 @@ end
 end
 
 @testset "embedded interactions" begin
+    m = fit(DummyMod, @formula(y ~ (a + b + c & d)^3), dat)
+    cn = coefnames(m)
+    @test cn == unique(cn)
+    
     m = fit(DummyMod, @formula(y ~ (a + b + c * d)^3), dat)
     cn = coefnames(m)
-    @test_broken !("a & c & c & d" in cn)
+    n_components = 5 # not quite right, but it's a, b, c, c&d
+    # +1 because intercept
+    expected_coefs = 1 + length(collect(combinations_upto(1:n_components, 3)))
+    # @test_broken !("a & c & d" in cn) && !("a & c & d & c" in cn)
     @test_broken cn == unique(cn)
 end

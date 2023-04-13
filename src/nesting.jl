@@ -54,13 +54,12 @@ function StatsModels.apply_schema(
     sch::StatsModels.FullRank,
     Mod::Type{<:RegressionModel},
 )
-    length(t.args_parsed) == 2 ||
+    length(t.args) == 2 ||
         throw(ArgumentError("malformed nesting term: $t (Exactly two arguments required)"))
 
-    any(x -> isa(x, ConstantTerm), t.args_parsed) && return t
+    any(x -> isa(x, ConstantTerm), t.args) && return t
 
-    args = apply_schema.(t.args_parsed, Ref(sch), Mod)
+    args = apply_schema.(t.args, Ref(sch), Mod)
 
     return first(args) / last(args)
 end
-

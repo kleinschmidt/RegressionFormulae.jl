@@ -1,7 +1,7 @@
 name = "RegressionFormulae"
 uuid = "545c379f-4ec2-4339-9aea-38f2fb6a8ba2"
 authors = ["Dave Kleinschmidt", "Phillip Alday"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 Combinatorics = "861a8166-3701-5b0c-9a16-15d98fcdc6aa"
@@ -10,7 +10,7 @@ StatsModels = "3eaba693-59b7-5ba5-a881-562e759f1c8d"
 [compat]
 Combinatorics = "1"
 StatsBase = "0.33"
-StatsModels = "0.6.7"
+StatsModels = "0.7"
 julia = "1.6"
 
 [extras]
