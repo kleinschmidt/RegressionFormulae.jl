@@ -1,9 +1,11 @@
-isdefined(@__MODULE__, :DUMMY_MOD) || (const DUMMY_MOD = true)
+module TestModels
+
+export DummyMod, DummyModNoIntercept
 
 # taken from StatsModels
 # https://github.com/JuliaStats/StatsModels.jl/blob/dee41c287033c0e9c18714a8d63bae61302027a6/test/statsmodel.jl
-
 using StatsBase
+using StatsModels
 
 # A dummy RegressionModel type
 struct DummyMod <: RegressionModel
@@ -101,3 +103,5 @@ StatsBase.dof(mod::DummyModNoIntercept) = length(mod.beta)
 StatsBase.dof_residual(mod::DummyModNoIntercept) = length(mod.y) - length(mod.beta)
 StatsBase.nobs(mod::DummyModNoIntercept) = length(mod.y)
 StatsBase.deviance(mod::DummyModNoIntercept) = sum((response(mod) .- predict(mod)).^2)
+
+end # module

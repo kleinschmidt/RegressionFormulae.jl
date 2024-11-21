@@ -1,9 +1,3 @@
-using StatsModels
-using RegressionFormulae
-using Test
-
-include("dummymod.jl")
-
 # y must not be the multiplicative or additive identity
 # otherwise some of the tests will trivially pass
 dat = (; y=2*ones(3), a=["u","i","o"], b=["q","w","e"], c=["s","d","f"], x=1:3)
