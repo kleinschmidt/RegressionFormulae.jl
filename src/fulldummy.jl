@@ -1,7 +1,8 @@
 """
     fulldummy(term::CategoricalTerm)
 
-Assign "contrasts" that include all indicator columns (dummy variables) and an intercept column.
+Assign "contrasts" that include all indicator columns (dummy variables) regardless of whether an 
+intercept column is present.
 
 Note that this generally results in an overparameterized model, but may be valid in regularized models.
 """
