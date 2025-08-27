@@ -20,6 +20,12 @@ function Base.:(^)(::TupleTerm, deg::AbstractTerm)
     throw(ArgumentError("power should be an integer constant (got $deg)"))
 end
 
+# in case a user wants to do @formula(y ~ x^2) when RegressionFormulae is loaded
+# and still have things work as if they had done @formula(y ~ abs2(x)).
+function Base.:(^)(base::AbstractTerm, deg::ConstantTerm{<:Number})
+    return FunctionTerm(^, [base, deg], :($(base)^$(deg)))
+end
+
 function StatsModels.apply_schema(
     t::FunctionTerm{typeof(^)},
     sch::StatsModels.FullRank,
