@@ -10,6 +10,24 @@ dat = (; y=zeros(3), a=1:3, b=11:13, c=21:23, d=31:33, e=["u", "i", "o"])
     @test_throws ArgumentError apply_schema(@formula(y ~ (a+b)^2.5), sch, RegressionModel)
 end
 
+
+@testset "powers of continuous terms" begin
+    ft = term(:b)^term(2)
+    @test ft isa FunctionTerm{typeof(^)}
+    @test ft.args == [term(:b), term(2)]
+    
+    ft = term(:dog)^term(3.14)
+    @test ft isa FunctionTerm{typeof(^)}
+    @test ft.args == [term(:dog), term(3.14)]
+
+    m = fit(DummyMod, @formula(y ~ (a)^3), dat)
+    @test coefnames(m) == ["(Intercept)", "a ^ 3"]
+
+    m = fit(DummyMod, @formula(y ~ d^2.7), dat)
+    @test coefnames(m) == ["(Intercept)", "d ^ 2.7"]
+
+end
+
 @testset "powers of sums" begin
     m = fit(DummyMod, @formula(y ~ (a + b + c + d)^3), dat)
     @test coefnames(m) == ["(Intercept)", "a", "b", "c", "d",

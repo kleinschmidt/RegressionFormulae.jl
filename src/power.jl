@@ -20,6 +20,10 @@ function Base.:(^)(::TupleTerm, deg::AbstractTerm)
     throw(ArgumentError("power should be an integer constant (got $deg)"))
 end
 
+function Base.:(^)(base::AbstractTerm, deg::ConstantTerm{<:Number})
+    return FunctionTerm(^, [base, deg], :($(base)^$(deg)))
+end
+
 function StatsModels.apply_schema(
     t::FunctionTerm{typeof(^)},
     sch::StatsModels.FullRank,
