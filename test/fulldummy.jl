@@ -1,10 +1,3 @@
-using StatsModels
-using RegressionFormulae
-using RegressionFormulae: fulldummy
-using Test
-
-include("dummymod.jl")
-
 dat = (; y=zeros(10), a=["u","i","o"], b=["q","w","e"], c=["s","d","f"], x=1:10)
 
 @testset "error checking" begin
