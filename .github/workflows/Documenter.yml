@@ -10,6 +10,10 @@ on:
 jobs:
   Documenter:
     name: Documentation
+    permissions:
+      contents: write
+      statuses: write
+      pull-requests: read # needed for Documenter to check whether this PR comes from the same repo 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
